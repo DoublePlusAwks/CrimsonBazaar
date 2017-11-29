@@ -23,7 +23,7 @@ class AppRouter extends React.Component {
     return (
       <View style={styles.container}>
         {user.initialized ?
-          user.loggedIn
+          user.email
             ? <MainRouter />
             : <LoginRouter />
           : <View style={styles.loadingContainer}>
