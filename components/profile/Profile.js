@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-
-import { logout } from 'actions/UserActions';
+import ProfileCard from 'components/profile/ProfileCard';
 
 class Profile extends Component {
   render() {
-    const { user, logout } = this.props;
+    const { user } = this.props;
     return (
       <View>
-        <Text>
-          {user.email}
-        </Text>
-        <Button
-          title="Log out"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-          onPress={logout}>
-        </Button>
+        <View>
+          <ProfileCard user={user} />
+        </View>
       </View>
     );
   }
@@ -30,14 +22,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({
-    logout,
-  },
-  dispatch);
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Profile);

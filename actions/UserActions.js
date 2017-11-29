@@ -2,7 +2,7 @@ import {
   LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_ERROR,
   SIGNUP_SUCCESS, SIGNUP_ERROR,
   VERIFY_EMAIL, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_ERROR,
-  USER_CHANGE
+  GET_USER, UPDATE_USER,
 } from 'config/actionTypes';
 import firebase from 'config/firebase';
 
@@ -25,13 +25,17 @@ const logoutSuccess = () => {
   };
 };
 
+const userChange = user => {
+  return {
+    type: UPDATE_USER,
+    user
+  };
+};
+
 export const subscribeToAuth = () => {
   return dispatch => {
     firebase.auth().onAuthStateChanged(user => {
-      dispatch({
-        type: USER_CHANGE,
-        user
-      });
+      dispatch(userChange(user));
       if (!user) {
         dispatch(logoutSuccess());
       }
@@ -40,6 +44,13 @@ export const subscribeToAuth = () => {
       }
     });
   }
+};
+
+export const getUser = () => {
+  return dispatch => {
+    dispatch({ type: GET_USER });
+    return userChange(firebase.auth().currentUser);
+  };
 };
 
 export const login = ({ email, password }) => {
