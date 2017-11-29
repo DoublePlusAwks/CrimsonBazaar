@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
 import Profile from 'components/profile/Profile';
-import ViewEvents from 'components/view-events/ViewEvents';
-import Chats from 'components/chats/Chats';
+import Auctions from 'components/auctions/Auctions';
 
 export default TabNavigator({
   Profile: { screen: Profile },
-  ViewEvents: { screen: ViewEvents },
-  Chats: { screen: Chats }
+  Auctions: { screen: Auctions },
 },{
-  initialRouteName: 'ViewEvents',
+  initialRouteName: 'Auctions',
   headerMode: 'screen'
 });
