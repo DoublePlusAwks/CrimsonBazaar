@@ -1,4 +1,9 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR, USER_CHANGE } from 'config/actionTypes';
+import {
+  LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_ERROR,
+  SIGNUP_SUCCESS, SIGNUP_ERROR,
+  VERIFY_EMAIL, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_ERROR,
+  USER_CHANGE
+} from 'config/actionTypes';
 import firebase from 'config/firebase';
 
 const loginError = error => {
@@ -49,7 +54,7 @@ export const login = ({ email, password }) => {
 
 export const logout = () => {
   return dispatch => {
-    firebase.auth.signOut()
+    firebase.auth().signOut()
       .then(() => {
         dispatch(logoutSuccess())
       });
@@ -69,10 +74,38 @@ const signupSuccess = () => {
   };
 };
 
+const verifyEmailSuccess = () => {
+  return {
+    type: VERIFY_EMAIL_SUCCESS,
+  };
+};
+
+const verifyEmailError = error => {
+  return {
+    type: VERIFY_EMAIL_ERROR,
+    error
+  };
+};
+
+const verifyEmail = () => {
+  return dispatch => {
+    firebase.auth().currentUser.sendEmailVerification(actionCodeSettings)
+      .then(() => {
+        dispatch(verifyEmailSuccess());
+      })
+      .catch(error => {
+        dispatch(emailError(error));
+      });
+  }
+}
+
 export const signup = ({ email, password }) => {
   return dispatch => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => dispatch(signupSuccess()))
+      .then(() => {
+        dispatch(signupSuccess());
+        dispatch(verifyEmail());
+      })
       .catch(err => dispatch(signupError(err)));
   };
 };
