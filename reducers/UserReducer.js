@@ -14,14 +14,12 @@ function userReducer(state = initialState.user, action) {
         loggedIn: { $set: false }
       });
     case USER_CHANGE:
-      if (action.user) {
-        return update(state, {
-          initialized: { $set: true },
-          email: { $set: action.user.email },
-          uid: { $set: action.user.uid },
-          emailVerified: { $set: action.user.emailVerified },
-        });
-      }
+      return update(state, {
+        initialized: { $set: true },
+        email: { $set: action.user && action.user.email },
+        uid: { $set: action.user && action.user.uid },
+        emailVerified: { $set: action.user && action.user.emailVerified },
+      });
   }
   return initialState.user;
 }
