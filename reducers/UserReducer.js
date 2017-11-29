@@ -21,7 +21,7 @@ function userReducer(state = initialState.user, action) {
         emailVerified: { $set: action.user && action.user.emailVerified },
       });
   }
-  return initialState.user;
+  return state;
 }
 
 export default userReducer;

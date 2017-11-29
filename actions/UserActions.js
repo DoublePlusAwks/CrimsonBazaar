@@ -25,7 +25,7 @@ const logoutSuccess = () => {
   };
 };
 
-export const subscribeToUser = () => {
+export const subscribeToAuth = () => {
   return dispatch => {
     firebase.auth().onAuthStateChanged(user => {
       dispatch({
@@ -89,7 +89,7 @@ const verifyEmailError = error => {
 
 const verifyEmail = () => {
   return dispatch => {
-    firebase.auth().currentUser.sendEmailVerification(actionCodeSettings)
+    firebase.auth().currentUser.sendEmailVerification()
       .then(() => {
         dispatch(verifyEmailSuccess());
       })
@@ -103,8 +103,8 @@ export const signup = ({ email, password }) => {
   return dispatch => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(() => {
-        dispatch(signupSuccess());
         dispatch(verifyEmail());
+        dispatch(signupSuccess());
       })
       .catch(err => dispatch(signupError(err)));
   };

@@ -7,7 +7,7 @@ import store from 'config/store';
 import MainRouter from 'components/main/MainRouter';
 import LoginRouter from 'components/login/LoginRouter';
 
-import { subscribeToUser } from 'actions/UserActions';
+import { subscribeToAuth } from 'actions/UserActions';
 
 class AppRouter extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class AppRouter extends React.Component {
   }
 
   componentWillMount() {
-    this.props.subscribeToUser();
+    this.props.subscribeToAuth();
   }
 
   render() {
@@ -56,7 +56,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    subscribeToUser
+    subscribeToAuth
   }, dispatch);
 };
 
