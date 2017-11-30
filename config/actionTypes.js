@@ -8,3 +8,5 @@ export const VERIFY_EMAIL = 'VERIFY_EMAIL';
 export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
 export const VERIFY_EMAIL_ERROR = 'VERIFY_EMAIL';
 export const GET_USER = 'GET_USER';
+
+export const UPDATE_AUCTIONS = 'UPDATE_AUCTIONS';
