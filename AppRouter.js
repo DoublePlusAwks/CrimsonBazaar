@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import store from 'config/store';
-import MainRouter from 'components/main/MainRouter';
+import RootRouter from 'components/main/RootRouter';
 import LoginRouter from 'components/login/LoginRouter';
 
 import { subscribeToAuth } from 'actions/UserActions';
@@ -24,7 +24,7 @@ class AppRouter extends React.Component {
       <View style={styles.container}>
         {user.initialized ?
           user.email
-            ? <MainRouter />
+            ? <RootRouter />
             : <LoginRouter />
           : <View style={styles.loadingContainer}>
             <ActivityIndicator animating={user.initialized} />

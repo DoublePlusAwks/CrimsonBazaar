@@ -8,11 +8,12 @@ class AuctionsList extends Component {
   }
 
   _renderAuctionCards() {
-    const { auctions } = this.props;
+    const { auctions, navigation } = this.props;
     return Object.keys(auctions).map(
       auctionId => {
         return (
           <AuctionCard
+            navigation={navigation}
             key={auctionId}
             auctionId={auctionId}
             auction={auctions[auctionId]}

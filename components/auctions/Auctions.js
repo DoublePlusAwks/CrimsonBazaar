@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Button, View, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
@@ -15,10 +15,10 @@ class Auctions extends Component {
   }
 
   render() {
-    const { auctions } = this.props;
+    const { auctions, navigation } = this.props;
     return (
       <View>
-        <AuctionsList auctions={auctions} />
+        <AuctionsList auctions={auctions} navigation={navigation} />
       </View>
     );
   }
