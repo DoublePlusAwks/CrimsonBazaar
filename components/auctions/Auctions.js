@@ -3,22 +3,22 @@ import { View, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
+import AuctionsList from 'components/auctions/AuctionsList';
 
 class Auctions extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentWillMount() {
     this.props.subscribeToAuctions();
   }
 
   render() {
+    const { auctions } = this.props;
     return (
       <View>
-        <Text>
-          View auctions here!
-        </Text>
+        <AuctionsList auctions={auctions} />
       </View>
     );
   }
@@ -26,6 +26,7 @@ class Auctions extends Component {
 
 const mapStateToProps = state => {
   return {
+    auctions: state.auctions
   };
 };
 

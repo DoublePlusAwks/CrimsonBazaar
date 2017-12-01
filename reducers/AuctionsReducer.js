@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import initialState from 'config/initialState';
-import { GET_AUCTIONS } from 'config/actionTypes';
+import { UPDATE_AUCTIONS } from 'config/actionTypes';
 
 function auctionsReducer(state = initialState.auctions, action) {
   switch(action.type) {
