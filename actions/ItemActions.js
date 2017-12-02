@@ -1,6 +1,7 @@
 import db from 'config/db';
 import { S3_URL_BASE } from 'config/aws';
 import { uploadImage } from 'util/imageUploadHelper';
+import { UPDATE_ITEMS } from 'config/actionTypes';
 
 const itemsRef = db.collection('items');
 const auctionsRef = db.collection('auctions');
@@ -24,3 +25,24 @@ export const addItem = ({ owner, auction, image, description, title }, successCa
     dispatch({ type: 'ADD_ITEM' });
   };
 };
+
+const updateItems = ({ auction, items }) => {
+  return {
+    type: UPDATE_ITEMS,
+    auction,
+    items
+  };
+};
+
+export const getItems = auction => {
+  return dispatch => {
+    itemsRef.where("auction", "==", auction)
+      .onSnapshot(snapshot => {
+        const items = {};
+        snapshot.forEach(doc => {
+          items[doc.id] = doc.data();
+        });
+        dispatch(updateItems({ auction, items }));
+      });
+  }
+}
