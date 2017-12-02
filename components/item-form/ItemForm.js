@@ -6,6 +6,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation'
 import { addItem } from 'actions/ItemActions';
 
 class ItemForm extends Component {
@@ -35,6 +36,7 @@ class ItemForm extends Component {
   _submit() {
     const { user, addItem } = this.props;
     const { auctionId } = this.props.navigation.state.params;
+    const { navigate } = this.props.navigation;
     const { title, description, image } = this.state;
     this.setState({ loading: true });
     addItem({
@@ -43,7 +45,19 @@ class ItemForm extends Component {
       description,
       title,
       image
-    }, () => this.setState({ loading: false }));
+    }, () => {
+      this.setState({ loading: false });
+      // https://github.com/react-community/react-navigation/issues/1127
+      const resetAction = NavigationActions.reset({
+        index: 1,
+        key: null,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Main'}),
+          NavigationActions.navigate({ routeName: 'Preference', params: { auctionId } })
+        ]
+      });
+      this.props.navigation.dispatch(resetAction);
+    });
   }
 
   render() {

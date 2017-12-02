@@ -7,11 +7,13 @@ import initialState from 'config/initialState';
 import ErrorReducer from 'reducers/ErrorReducer';
 import UserReducer from 'reducers/UserReducer';
 import AuctionsReducer from 'reducers/AuctionsReducer';
+import ItemsReducer from 'reducers/ItemsReducer';
 
 const rootReducer = combineReducers({
   errors: ErrorReducer,
   user: UserReducer,
-  auctions: AuctionsReducer
+  auctions: AuctionsReducer,
+  items: ItemsReducer
 });
 
 const store = createStore(

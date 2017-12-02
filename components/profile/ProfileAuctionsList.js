@@ -15,7 +15,7 @@ class ProfileAuctionsList extends Component {
 
   _onCardPress({ auction, auctionId }) {
     const { navigate } = this.props.navigation;
-    navigate('ItemForm', { auctionId });
+    navigate('Preference', { auctionId });
   }
 
   _getParticipatingAuctions() {
@@ -29,7 +29,6 @@ class ProfileAuctionsList extends Component {
   }
 
   render() {
-    console.log(this._getParticipatingAuctions());
     return (
       <AuctionsList
         auctions={this._getParticipatingAuctions()}
