@@ -28,7 +28,6 @@ class ItemForm extends Component {
     });
 
     if (!result.cancelled) {
-      console.log(result);
       this.setState({ image: result });
     }
   }
