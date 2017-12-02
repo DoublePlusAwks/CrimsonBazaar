@@ -10,3 +10,5 @@ export const VERIFY_EMAIL_ERROR = 'VERIFY_EMAIL';
 export const GET_USER = 'GET_USER';
 
 export const UPDATE_AUCTIONS = 'UPDATE_AUCTIONS';
+
+export const UPDATE_ITEMS = 'UPDATE_ITEMS';
