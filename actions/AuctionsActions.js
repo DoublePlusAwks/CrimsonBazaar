@@ -1,4 +1,3 @@
-import firebase from 'config/firebase';
 import db from 'config/db';
 import { UPDATE_AUCTIONS } from 'config/actionTypes';
 
@@ -14,7 +13,7 @@ export const subscribeToAuctions = () => {
       dispatch({
         type: UPDATE_AUCTIONS,
         auctions
-      })
+      });
     });
   };
 };

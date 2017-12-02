@@ -3,6 +3,10 @@ import { Dimensions, TouchableOpacity, Image, View, Text, TextInput, StyleSheet 
 import { ImagePicker } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addItem } from 'actions/ItemActions';
 
 class ItemForm extends Component {
   constructor(props) {
@@ -10,7 +14,8 @@ class ItemForm extends Component {
     this.state = {
       title: '',
       description: '',
-      image: '',
+      image: null,
+      loading: false
     };
   }
 
@@ -18,13 +23,28 @@ class ItemForm extends Component {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [1, 1],
+      base64: true,
+      quality: 0.3
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      console.log(result);
+      this.setState({ image: result });
     }
+  }
+
+  _submit() {
+    const { user, addItem } = this.props;
+    const { auctionId } = this.props.navigation.state.params;
+    const { title, description, image } = this.state;
+    this.setState({ loading: true });
+    addItem({
+      owner: user.uid,
+      auction: auctionId,
+      description,
+      title,
+      image
+    }, () => this.setState({ loading: false }));
   }
 
   render() {
@@ -33,13 +53,14 @@ class ItemForm extends Component {
     if (image) {
       imgPlaceholder = (
         <Image
-          source={{ uri: image }}
+          source={{ uri: image.uri }}
           style={{ width: 200, height: 200 }}
         />
       );
     }
     return (
       <View style={styles.container}>
+        <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
         <View style={styles.contentContainer}>
           <TouchableOpacity
             onPress={() => this._pickImage()} >
@@ -69,7 +90,17 @@ class ItemForm extends Component {
             </View>
           </View>
         </View>
-        <KeyboardSpacer/>
+        <KeyboardSpacer />
+        <TouchableOpacity
+          onPress={() => this._submit()}
+        >
+          <View
+            style={styles.submitButton} >
+            <Text style={styles.submitText}>
+              Submit
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -106,7 +137,34 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderWidth: 2,
     borderColor: 'lightgray'
+  },
+  submitButton: {
+    height: 40,
+    width: width * 0.9,
+    backgroundColor: 'steelblue',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  submitText: {
+    color: 'white',
+    fontWeight: 'bold'
   }
 });
 
-export default ItemForm;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addItem
+  }, dispatch);
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ItemForm);
