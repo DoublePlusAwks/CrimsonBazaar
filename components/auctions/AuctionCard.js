@@ -7,22 +7,20 @@ class AuctionCard extends Component {
   _itemCount() {
     const { auction } = this.props;
     const itemsKeys = Object.keys(auction.items);
-    console.log(itemsKeys);
     const items = itemsKeys.filter(key => auction.items[key] === true);
     return items.length;
   }
 
   render() {
-    const { auctionId, auction } = this.props;
-    const { navigate } = this.props.navigation;
+    const { auctionId, auction, onCardPress } = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity
           style={{ flex: 1 }}
-          onPress={() => navigate('ItemForm', { auctionId })}
+          onPress={() => onCardPress({ auction, auctionId })}
           >
           <View>
-            <Text>
+            <Text style={styles.title}>
               {auction.title}
             </Text>
           </View>
@@ -46,6 +44,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 10,
     padding: 10
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 });
 

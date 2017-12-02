@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import AuctionCard from 'components/auctions/AuctionCard';
 
 class AuctionsList extends Component {
@@ -8,15 +8,15 @@ class AuctionsList extends Component {
   }
 
   _renderAuctionCards() {
-    const { auctions, navigation } = this.props;
+    const { onCardPress, auctions } = this.props;
     return Object.keys(auctions).map(
       auctionId => {
         return (
           <AuctionCard
-            navigation={navigation}
             key={auctionId}
             auctionId={auctionId}
             auction={auctions[auctionId]}
+            onCardPress={onCardPress}
           />
         );
       }
@@ -25,9 +25,9 @@ class AuctionsList extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <View>
         {this._renderAuctionCards()}
-      </ScrollView>
+      </View>
     );
   }
 }

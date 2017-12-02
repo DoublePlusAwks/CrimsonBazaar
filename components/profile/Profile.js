@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import ProfileCard from 'components/profile/ProfileCard';
+import ProfileAuctionsList from 'components/profile/ProfileAuctionsList';
 
 class Profile extends Component {
   render() {
     const { user } = this.props;
     return (
-      <View>
+      <ScrollView>
         <View>
           <ProfileCard user={user} />
         </View>
-      </View>
+        <ProfileAuctionsList navigation={this.props.navigation}/>
+      </ScrollView>
     );
   }
 }

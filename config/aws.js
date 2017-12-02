@@ -20,3 +20,5 @@ export const s3 = new AWS.S3({
   apiVersion: '2006-03-01',
   params: { Bucket: bucketName }
 });
+
+export const S3_URL_BASE = 'https://s3.amazonaws.com/crimsonbazaar-dev'

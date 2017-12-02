@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
 import AuctionsList from 'components/auctions/AuctionsList';
 
-class Auctions extends Component {
+class ProfileAuctionsList extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,10 +18,10 @@ class Auctions extends Component {
     navigate('ItemForm', { auctionId });
   }
 
-  _getNonparticipatingAuctions() {
+  _getParticipatingAuctions() {
     const { auctions, user } = this.props;
     return Object.keys(auctions)
-      .filter(key => auctions[key].participants[user.uid] !== true)
+      .filter(key => auctions[key].participants[user.uid] === true)
       .reduce((obj, key) => {
         obj[key] = auctions[key];
         return obj;
@@ -30,13 +29,12 @@ class Auctions extends Component {
   }
 
   render() {
+    console.log(this._getParticipatingAuctions());
     return (
-      <ScrollView>
-        <AuctionsList
-          auctions={this._getNonparticipatingAuctions()}
-          onCardPress={card => this._onCardPress(card)}
-        />
-      </ScrollView>
+      <AuctionsList
+        auctions={this._getParticipatingAuctions()}
+        onCardPress={card => this._onCardPress(card)}
+      />
     );
   }
 }
@@ -57,4 +55,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Auctions);
+)(ProfileAuctionsList);
