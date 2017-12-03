@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, Text } from 'react-native';
+import { Button, ScrollView, Text, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
@@ -31,7 +31,7 @@ class Auctions extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <AuctionsList
           auctions={this._getNonparticipatingAuctions()}
           onCardPress={card => this._onCardPress(card)}
@@ -40,6 +40,12 @@ class Auctions extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 5,
+  },
+});
 
 const mapStateToProps = state => {
   return {

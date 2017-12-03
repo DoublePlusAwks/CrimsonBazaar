@@ -9,7 +9,7 @@ class LoginHome extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{flex: 1, backgroundColor: '#EBFFFF', justifyContent: 'space-around'}}>
+      <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
@@ -39,6 +39,11 @@ class LoginHome extends Component {
 var { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#EBFFFF',
+    justifyContent: 'space-around',
+  },
   logoContainer: {
     flex: 1,
     alignItems: 'center',

@@ -10,13 +10,18 @@ import PreferenceCard from 'components/preference/PreferenceCard';
 class Preference extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fetching: true
+    };
   }
 
   componentWillMount() {
     const { getItems, getPreference, user } = this.props;
     const { auctionId } = this.props.navigation.state.params;
+    getPreference(
+      { auction: auctionId, owner: user.uid },
+      () => this.setState({ fetching: false }));
     getItems(auctionId);
-    getPreference({ auction: auctionId, owner: user.uid });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,7 +30,7 @@ class Preference extends Component {
       user, preferences, items
     } = nextProps;
     const { auctionId } = nextProps.navigation.state.params;
-    if (this._isEmpty(items) || this._isEmpty(items[auctionId])) {
+    if (this.state.fetching || this._isEmpty(items) || this._isEmpty(items[auctionId])) {
       return;
     }
     const itemKeys = Object.keys(items[auctionId]);
@@ -105,6 +110,7 @@ class Preference extends Component {
       const currItemId = preference[prefLevel];
       orderedItems[prefLevel] = currItemId;
     });
+    console.log(orderedItems);
     const cards = [];
     for (entry of orderedItems.entries()) {
       const prefLevel = entry[0];

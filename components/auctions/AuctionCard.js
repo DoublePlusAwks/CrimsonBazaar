@@ -43,10 +43,8 @@ class AuctionCard extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    marginTop: 10,
-    marginHorizontal: 10,
-    padding: 10,
+    borderBottomWidth: 1,
+    padding: 10
   },
   title: {
     fontWeight: 'bold',

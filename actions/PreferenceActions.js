@@ -7,7 +7,7 @@ import {
 
 const preferencesRef = db.collection('preferences');
 
-export const getPreference = ({ auction, owner }) => {
+export const getPreference = ({ auction, owner }, successCallback) => {
   return dispatch => {
     preferencesRef
       .doc(`${auction}___${owner}`)
@@ -23,6 +23,7 @@ export const getPreference = ({ auction, owner }) => {
             auction
           });
         }
+        successCallback();
       });
   };
 };
