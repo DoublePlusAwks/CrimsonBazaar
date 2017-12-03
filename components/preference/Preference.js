@@ -152,7 +152,8 @@ class Preference extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    margin: 20
   },
 });
 
