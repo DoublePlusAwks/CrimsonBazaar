@@ -1,5 +1,5 @@
 import db from 'config/db';
-import { UPDATE_TRADES_TO, UPDATE_TRADES_FROM } from 'config/actionTypes';
+import { COMPLETE_TRADE, UPDATE_TRADES_TO, UPDATE_TRADES_FROM } from 'config/actionTypes';
 
 const tradesRef = db.collection('trades');
 
@@ -31,3 +31,20 @@ export const subscribeToTrades = owner => {
       });
   };
 };
+
+export const completeTrade = (tradeId, successCallback) => {
+  return dispatch => {
+    tradesRef.doc(tradeId).update({
+      completed: true
+    })
+    .then(() => {
+      dispatch({
+        type: COMPLETE_TRADE,
+        tradeId
+      });
+      if (successCallback) {
+        successCallback();
+      }
+    });
+  }
+}

@@ -1,19 +1,41 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Alert, View, Text, StyleSheet } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation'
+import { completeTrade } from 'actions/TradesActions';
 
 class ValidateTradeFrom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasCameraPermission: null
+      hasCameraPermission: null,
+      disabled: false,
     }
   }
 
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+  _handleBarCodeRead = ({ type, data }) => {
+    const { disabled } = this.state;
+    if (disabled) {
+      return;
     }
+    const { completeTrade, navigation } = this.props;
+    const { trade, tradeId } = navigation.state.params;
+    if (data == trade.toUser) {
+      this.setState({ disabled: true });
+      const backAction = NavigationActions.back();
+      completeTrade(tradeId, () => {
+        navigation.dispatch(backAction);
+        Alert.alert('Trade succeeded!');
+      });
+    }
+  }
 
   render() {
     const { hasCameraPermission } = this.state;
@@ -33,10 +55,6 @@ class ValidateTradeFrom extends Component {
       );
     }
   }
-
-  _handleBarCodeRead = ({ type, data }) => {
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-  }
 }
 
 const styles = StyleSheet.create({
@@ -48,4 +66,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ValidateTradeFrom;
+const mapStateToProps = state => {
+  return {
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    completeTrade,
+  }, dispatch);
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ValidateTradeFrom);
