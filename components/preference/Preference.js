@@ -10,33 +10,34 @@ import PreferenceCard from 'components/preference/PreferenceCard';
 class Preference extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fetching: true
-    };
   }
 
   componentWillMount() {
     const { getItems, getPreference, user } = this.props;
     const { auctionId } = this.props.navigation.state.params;
-    getPreference(
-      { auction: auctionId, owner: user.uid },
-      () => this.setState({ fetching: false }));
+    getPreference({ auction: auctionId, owner: user.uid });
     getItems(auctionId);
   }
 
-  componentWillReceiveProps(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
+      || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
+    );
+  }
+
+  componentDidUpdate() {
     const {
       getItems, getPreference, setPreference,
       user, preferences, items
-    } = nextProps;
-    const { auctionId } = nextProps.navigation.state.params;
-    if (this.state.fetching || this._isEmpty(items) || this._isEmpty(items[auctionId])) {
+    } = this.props;
+    const { auctionId } = this.props.navigation.state.params;
+    if (preferences.fetching || this._isEmpty(items) || this._isEmpty(items[auctionId])) {
       return;
     }
     const itemKeys = Object.keys(items[auctionId]);
 
-    if (this._isEmpty(preferences)
-        || this._isEmpty(preferences[auctionId])) {
+    if (this._isEmpty(preferences) || this._isEmpty(preferences[auctionId])) {
       var preference = {};
       for (entry of itemKeys.entries()) {
         preference[entry[0]] = entry[1];
@@ -68,13 +69,6 @@ class Preference extends Component {
         });
       }
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
-      || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
-    );
   }
 
   _isEmpty(obj) {
@@ -110,7 +104,6 @@ class Preference extends Component {
       const currItemId = preference[prefLevel];
       orderedItems[prefLevel] = currItemId;
     });
-    console.log(orderedItems);
     const cards = [];
     for (entry of orderedItems.entries()) {
       const prefLevel = entry[0];

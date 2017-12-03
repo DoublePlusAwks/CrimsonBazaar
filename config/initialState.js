@@ -11,5 +11,6 @@ export default {
   items: {
   },
   preferences: {
+    fetching: false,
   }
 };
