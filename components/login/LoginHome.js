@@ -13,7 +13,7 @@ class LoginHome extends Component {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={{ uri: 'http://rappart.com/wp-content/uploads/2017/02/logoex-1.gif' }} />
+            source={require('assets/logo.gif')} />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
