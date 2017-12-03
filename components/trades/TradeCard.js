@@ -49,7 +49,7 @@ class TradeCard extends Component {
             </View>
             <View>
               <Text>
-                {otherUsers[this._getOtherUser()].email}
+                {otherUsers[this._getOtherUser()] && otherUsers[this._getOtherUser()].email}
               </Text>
             </View>
           </View>

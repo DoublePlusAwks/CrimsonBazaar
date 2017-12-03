@@ -16,6 +16,8 @@ class TradesList extends Component {
   }
 
   _renderToTrades() {
+    console.log(this.props);
+    const { navigate } = this.props.navigation;
     const { toTrades } = this.props.trades;
     return Object.keys(toTrades).map(tradeId => {
       return (
@@ -24,13 +26,16 @@ class TradesList extends Component {
           key={tradeId}
           tradeId={tradeId}
           trade={toTrades[tradeId]}
-          onCardPress={console.log}
+          onCardPress={
+            () => navigate('ValidateTradeTo',
+                            { tradeId, trade: toTrades[tradeId] })}
         />
       );
     });
   }
 
   _renderFromTrades() {
+    const { navigate } = this.props.navigation;
     const { fromTrades } = this.props.trades;
     return Object.keys(fromTrades).map(tradeId => {
       return (
@@ -39,8 +44,9 @@ class TradesList extends Component {
           key={tradeId}
           tradeId={tradeId}
           trade={fromTrades[tradeId]}
-          onCardPress={console.log}
-        />
+          onCardPress={
+            () => navigate('ValidateTradeFrom',
+                            { tradeId, trade: fromTrades[tradeId] })}        />
       );
     });
   }
