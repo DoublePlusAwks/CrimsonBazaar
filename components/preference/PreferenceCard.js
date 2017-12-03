@@ -10,7 +10,7 @@ class PreferenceCard extends Component {
       <View style={{ ...styles.container, backgroundColor: color }}>
         <TouchableOpacity>
           <Image
-            source={item.image}
+            source={{ uri: item.image }}
             style={styles.thumbnail}
           />
         </TouchableOpacity>
@@ -26,6 +26,7 @@ const styles = {
     margin: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 5,
   },
   thumbnail: {
     height: 50,

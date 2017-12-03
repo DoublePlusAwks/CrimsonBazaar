@@ -6,6 +6,10 @@ import { getItems } from 'actions/ItemActions';
 import SortableGrid from 'react-native-sortable-grid'
 import PreferenceCard from 'components/preference/PreferenceCard';
 
+const GREEN = '#4CAF50';
+const RED = '#F44336';
+const GRAY = '#9E9E9E';
+
 class Preference extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +22,16 @@ class Preference extends Component {
 
   _renderPreferenceCards() {
     const { items } = this.props;
-    return Object.keys(items).map(
+    const { auctionId } = this.props.navigation.state.params;
+    console.log(items);
+    const auctionItems = items[auctionId];
+    return Object.keys(auctionItems).map(
       key => {
         return (
           <PreferenceCard
             key={key}
-            item={items[key]}
-            color="green"
+            item={auctionItems[key]}
+            color="#8BC34A"
           />
         );
       }
@@ -50,7 +57,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.user,
     items: state.items,
