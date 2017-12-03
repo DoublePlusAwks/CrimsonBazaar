@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: 'steelblue',
     alignItems: 'center',
     justifyContent: 'center'
   }

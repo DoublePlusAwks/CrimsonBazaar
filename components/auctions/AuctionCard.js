@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import * as moment from 'moment';
 import * as pluralize from 'pluralize';
 
@@ -16,21 +17,23 @@ class AuctionCard extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={{ flex: 1 }}
-          onPress={() => onCardPress({ auction, auctionId })}
-          >
-          <View>
-            <Text style={styles.title}>
-              {auction.title}
-            </Text>
-          </View>
-          <View>
-            <Text>
-              {`Market closes ${moment.default(auction.end).fromNow()}`}
-            </Text>
-            <Text>
-              {`Contains ${pluralize.default('item', this._itemCount(), true)}`}
-            </Text>
+          style={{ flex: 1, flexDirection: 'row' }}
+          onPress={() => onCardPress({ auction, auctionId })} >
+          <FontAwesome name="exchange" size={64} color="gray" />
+          <View style={styles.textContainer}>
+            <View>
+              <Text style={styles.title}>
+                {auction.title}
+              </Text>
+            </View>
+            <View>
+              <Text>
+                {`Market closes ${moment.default(auction.end).fromNow()}`}
+              </Text>
+              <Text>
+                {`Contains ${pluralize.default('item', this._itemCount(), true)}`}
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -43,11 +46,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 10,
     marginHorizontal: 10,
-    padding: 10
+    padding: 10,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 20,
+  },
+  textContainer: {
+    flex: 1,
+    paddingLeft: 15,
+    flexDirection: 'column'
   }
 });
 
