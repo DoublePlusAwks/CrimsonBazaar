@@ -8,12 +8,14 @@ import ErrorReducer from 'reducers/ErrorReducer';
 import UserReducer from 'reducers/UserReducer';
 import AuctionsReducer from 'reducers/AuctionsReducer';
 import ItemsReducer from 'reducers/ItemsReducer';
+import PreferencesReducer from 'reducers/PreferencesReducer';
 
 const rootReducer = combineReducers({
   errors: ErrorReducer,
   user: UserReducer,
   auctions: AuctionsReducer,
-  items: ItemsReducer
+  items: ItemsReducer,
+  preferences: PreferencesReducer,
 });
 
 const store = createStore(
