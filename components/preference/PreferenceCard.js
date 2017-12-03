@@ -8,12 +8,10 @@ class PreferenceCard extends Component {
     const { color, item } = this.props;
     return (
       <View style={{ ...styles.container, backgroundColor: color }}>
-        <TouchableOpacity>
-          <Image
-            source={{ uri: item.image }}
-            style={styles.thumbnail}
-          />
-        </TouchableOpacity>
+        <Image
+          source={{ uri: item.thumbnail }}
+          style={styles.thumbnail}
+        />
       </View>
     );
   }
@@ -21,16 +19,16 @@ class PreferenceCard extends Component {
 
 const styles = {
   container: {
-    height: 60,
-    width: 60,
+    height: 70,
+    width: 70,
     margin: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
   },
   thumbnail: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
   },
 };
 

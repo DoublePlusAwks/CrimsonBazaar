@@ -22,3 +22,4 @@ export const s3 = new AWS.S3({
 });
 
 export const S3_URL_BASE = 'https://s3.amazonaws.com/crimsonbazaar-dev'
+export const S3_THUMB_URL_BASE = 'https://s3.amazonaws.com/crimsonbazaar-dev-resized';
