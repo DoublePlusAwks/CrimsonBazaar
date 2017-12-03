@@ -7,10 +7,6 @@ import { getPreference, setPreference } from 'actions/PreferenceActions';
 import SortableGrid from 'react-native-sortable-grid'
 import PreferenceCard from 'components/preference/PreferenceCard';
 
-const GREEN = '#4CAF50';
-const RED = '#F44336';
-const GRAY = '#9E9E9E';
-
 class Preference extends Component {
   constructor(props) {
     super(props);
@@ -78,9 +74,9 @@ class Preference extends Component {
   _getCardColor(item) {
     const { user } = this.props;
     if (item.owner === user.uid) {
-      return GREEN;
+      return 'steelblue';
     }
-    return GRAY;
+    return 'lightgray';
   }
 
   _renderPreferenceCards() {
