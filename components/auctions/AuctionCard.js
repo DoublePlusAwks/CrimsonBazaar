@@ -19,7 +19,7 @@ class AuctionCard extends Component {
         <TouchableOpacity
           style={{ flex: 1, flexDirection: 'row' }}
           onPress={() => onCardPress({ auction, auctionId })} >
-          <FontAwesome name="exchange" size={64} color="gray" />
+          <FontAwesome name="exchange" size={64} color="steelblue" />
           <View style={styles.textContainer}>
             <View>
               <Text style={styles.title}>

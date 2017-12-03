@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Dimensions, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 class LoginHome extends Component {
   static navigationOptions = {
@@ -9,9 +9,11 @@ class LoginHome extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: '#EBFFFF', justifyContent: 'space-around'}}>
         <View style={styles.logoContainer}>
-          <Text>Welcome!</Text>
+          <Image
+            style={styles.logo}
+            source={{ uri: 'http://rappart.com/wp-content/uploads/2017/02/logoex-1.gif' }} />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -34,35 +36,39 @@ class LoginHome extends Component {
   }
 }
 
+var { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   logoContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo: {
+     width: width,
+     height: width * 0.75
+  },
   buttonContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    height: 130
   },
   loginButton: {
     alignSelf: 'stretch',
-    height: 40,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'deepskyblue',
-    margin: 10,
   },
   signInButton: {
     alignSelf: 'stretch',
-    height: 40,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'red',
-    margin: 10
   },
   buttonText: {
+    fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
   },
