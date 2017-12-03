@@ -9,8 +9,8 @@ const ProfileCard = ({ user, logout }) => {
     <View>
       <View style={styles.profileCard}>
         <View style={styles.profileInfo}>
-          <Text>
-            {user.email}
+          <Text style={styles.title}>
+            Welcome {user.email}
           </Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold'
   },
   buttonContainer: {
     margin: 10,

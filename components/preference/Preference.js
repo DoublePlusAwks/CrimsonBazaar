@@ -137,14 +137,22 @@ class Preference extends Component {
 
   render() {
     const { auctionId } = this.props.navigation.state.params;
+    const { auctions } = this.props;
     return (
       <View style={styles.container}>
-        <SortableGrid
-          itemWidth={80}
-          onDragRelease={itemOrder => this._onDragRelease(itemOrder)}
-        >
-          {this._renderPreferenceCards()}
-        </SortableGrid>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>
+            Preferences for {auctions[auctionId].title}
+          </Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <SortableGrid
+            itemWidth={80}
+            onDragRelease={itemOrder => this._onDragRelease(itemOrder)}
+          >
+            {this._renderPreferenceCards()}
+          </SortableGrid>
+        </View>
       </View>
     );
   }
@@ -155,13 +163,25 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     margin: 20
   },
+  titleContainer: {
+    borderBottomWidth: 2.5,
+    paddingVertical: 10,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  contentContainer: {
+    marginTop: 15
+  }
 });
 
 const mapStateToProps = state => {
   return {
     user: state.user,
     items: state.items,
-    preferences: state.preferences
+    preferences: state.preferences,
+    auctions: state.auctions
   };
 };
 

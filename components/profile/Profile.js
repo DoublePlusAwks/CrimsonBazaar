@@ -12,11 +12,44 @@ class Profile extends Component {
         <View>
           <ProfileCard user={user} />
         </View>
-        <ProfileAuctionsList navigation={this.props.navigation}/>
+        <View style={styles.contentContainer}>
+          <View style={styles.auctionsContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Auctions</Text>
+            </View>
+            <ProfileAuctionsList navigation={this.props.navigation}/>
+          </View>
+          <View style={styles.tradesContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Trades</Text>
+            </View>
+            <ProfileAuctionsList navigation={this.props.navigation}/>
+          </View>
+        </View>
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    marginHorizontal: 5,
+  },
+  titleContainer: {
+    borderBottomWidth: 2.5,
+    paddingVertical: 5,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  auctionsContainer: {
+    paddingBottom: 20
+  },
+  tradesContainer: {
+    paddingBottom: 40
+  }
+});
 
 const mapStateToProps = state => {
   return {

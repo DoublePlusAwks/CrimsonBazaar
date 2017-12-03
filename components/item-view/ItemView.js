@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
     height: width,
     width: width
   }
-})
+});
 
 export default ItemView;
