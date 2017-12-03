@@ -65,12 +65,12 @@ class Preference extends Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return (
-  //     JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
-  //     || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
-  //   );
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
+      || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
+    );
+  }
 
   _isEmpty(obj) {
     if (!obj) { return true; }
@@ -79,7 +79,7 @@ class Preference extends Component {
 
   _getCardColor(item) {
     const { user } = this.props;
-    if (item.owner === user.uid) {
+    if (item && item.owner === user.uid) {
       return 'steelblue';
     }
     return 'lightgray';
@@ -88,6 +88,8 @@ class Preference extends Component {
   _renderPreferenceCards() {
     const { user, items, preferences } = this.props;
     const { auctionId } = this.props.navigation.state.params;
+    const { navigate } = this.props.navigation;
+
     if (this._isEmpty(items)
         || this._isEmpty(items[auctionId])
         || this._isEmpty(preferences)
@@ -109,7 +111,7 @@ class Preference extends Component {
       const itemId = entry[1];
       cards.push(
         <PreferenceCard
-          onTap={() => console.log(prefLevel)}
+          onTap={() => navigate('ItemView', { item: auctionItems[itemId] })}
           key={itemId}
           item={auctionItems[itemId]}
           color={this._getCardColor(auctionItems[itemId])}
