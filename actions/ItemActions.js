@@ -17,7 +17,7 @@ export const addItem = ({ owner, auction, image, description, title }, successCa
       description,
       title,
       image: `${S3_URL_BASE}/items/${newItem.id}.jpg`,
-      thumbnail: `${S3_THUMB_URL_BASE}/thumb-items/${newItem.id}.jpg`
+      thumbnail: `${S3_THUMB_URL_BASE}/resized-items/${newItem.id}.jpg`
     });
     auctionsRef.doc(auction).update({
       [`items.${newItem.id}`]: true,

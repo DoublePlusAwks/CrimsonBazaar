@@ -28,8 +28,8 @@ class Preference extends Component {
 
     const itemKeys = Object.keys(items[auctionId]);
 
-    if (this._isEmptyObject(preferences)
-        || this._isEmptyObject(preferences[auctionId])) {
+    if (this._isEmpty(preferences)
+        || this._isEmpty(preferences[auctionId])) {
       var preference = {};
       for (entry of itemKeys.entries()) {
         preference[entry[0]] = entry[1];
@@ -64,11 +64,14 @@ class Preference extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences);
+    return (
+      JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
+      || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
+    );
   }
 
-  _isEmptyObject(obj) {
-    return obj.constructor === Object && Object.keys(obj).length === 0;
+  _isEmpty(obj) {
+    return obj && obj.constructor === Object && Object.keys(obj).length === 0;
   }
 
   _getCardColor(item) {
@@ -82,9 +85,10 @@ class Preference extends Component {
   _renderPreferenceCards() {
     const { user, items, preferences } = this.props;
     const { auctionId } = this.props.navigation.state.params;
-    if (!items[auctionId]
-        || this._isEmptyObject(preferences)
-        || this._isEmptyObject(preferences[auctionId])
+    if (this._isEmpty(items)
+        || this._isEmpty(items[auctionId])
+        || this._isEmpty(preferences)
+        || this._isEmpty(preferences[auctionId])
         || Object.keys(preferences[auctionId]).length !== Object.keys(items[auctionId]).length) {
       return [];
     }
