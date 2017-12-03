@@ -20,8 +20,9 @@ class PreferenceCard extends Component {
 const styles = {
   container: {
     height: 70,
-    width: 70,
-    margin: 5,
+    width: 400,
+    marginTop: 5,
+    marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

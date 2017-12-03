@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Text, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getItems } from 'actions/ItemActions';
 import { getPreference, setPreference } from 'actions/PreferenceActions';
-import SortableGrid from 'react-native-sortable-grid'
+import SortableList from 'react-native-sortable-list';
 import PreferenceCard from 'components/preference/PreferenceCard';
 
 class Preference extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      shouldUpdate: true
+    };
   }
 
   componentWillMount() {
@@ -64,7 +67,7 @@ class Preference extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences);
+    return this.state.shouldUpdate && JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences);
   }
 
   _isEmptyObject(obj) {
@@ -127,17 +130,66 @@ class Preference extends Component {
     });
   }
 
-  render() {
+  _renderRow({ key, index, data, disabled, active }) {
+    const { user, items } = this.props;
     const { auctionId } = this.props.navigation.state.params;
+    const auctionItems = items[auctionId];
     return (
-      <View style={styles.container}>
-        <SortableGrid
-          itemWidth={80}
-          onDragRelease={itemOrder => this._onDragRelease(itemOrder)}
-        >
-          {this._renderPreferenceCards()}
-        </SortableGrid>
-      </View>
+      <PreferenceCard
+        item={auctionItems[data]}
+        color={this._getCardColor(auctionItems[data])}
+      />
+    );
+  }
+
+  _renderPrefList() {
+    const { preferences, items } = this.props;
+    const { auctionId } = this.props.navigation.state.params;
+    let prefList = null;
+    if (!items[auctionId]
+        || this._isEmptyObject(preferences)
+        || this._isEmptyObject(preferences[auctionId])
+        || Object.keys(preferences[auctionId]).length !== Object.keys(items[auctionId]).length) {
+      return prefList;
+    } else {
+      return (
+        <SortableList
+          data={preferences[auctionId]}
+          renderRow={rowData => this._renderRow(rowData)}
+          onChangeOrder={nextOrder => this._onChangeOrder(nextOrder)}
+          onActivateRow={this.setState({ shouldUpdate: false })}
+          onReleaseRow={this.setState({ shouldUpdate: true })}
+        />
+      );
+    }
+  }
+
+  _onChangeOrder(nextOrder) {
+    const { preferences, user, setPreference } = this.props;
+    const { auctionId } = this.props.navigation.state.params;
+    const newPreference = {};
+    let prefLevel = 0;
+    for (key of nextOrder) {
+      newPreference[prefLevel] = preferences[auctionId][key];
+      prefLevel++;
+    }
+    console.log(newPreference);
+    setPreference({
+      auction: auctionId,
+      owner: user.uid,
+      preference: newPreference
+    });
+  }
+
+  render() {
+    const { preferences } = this.props;
+    const { auctionId } = this.props.navigation.state.params;
+    console.log(preferences);
+    const prefList = null;
+    return (
+      <ScrollView style={styles.container}>
+        {this._renderPrefList()}
+      </ScrollView>
     );
   }
 }
