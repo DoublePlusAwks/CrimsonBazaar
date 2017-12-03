@@ -3,6 +3,7 @@ import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 
 import { connect } from 'react-redux';
 import ProfileCard from 'components/profile/ProfileCard';
 import ProfileAuctionsList from 'components/profile/ProfileAuctionsList';
+import TradesList from 'components/trades/TradesList';
 
 class Profile extends Component {
   render() {
@@ -17,13 +18,13 @@ class Profile extends Component {
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Ongoing Auctions</Text>
             </View>
-            <ProfileAuctionsList navigation={this.props.navigation}/>
+            <ProfileAuctionsList navigation={this.props.navigation} />
           </View>
           <View style={styles.tradesContainer}>
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Outstanding Trades</Text>
             </View>
-            <ProfileAuctionsList navigation={this.props.navigation}/>
+            <TradesList navigation={this.props.navigation} />
           </View>
         </View>
       </ScrollView>

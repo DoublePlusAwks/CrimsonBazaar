@@ -12,5 +12,11 @@ export default {
   },
   preferences: {
     fetching: false,
+  },
+  trades: {
+    toTrades: {},
+    fromTrades: {}
+  },
+  otherUsers: {
   }
 };
