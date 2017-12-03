@@ -25,7 +25,9 @@ class Preference extends Component {
       user, preferences, items
     } = nextProps;
     const { auctionId } = nextProps.navigation.state.params;
-
+    if (this._isEmpty(items) || this._isEmpty(items[auctionId])) {
+      return;
+    }
     const itemKeys = Object.keys(items[auctionId]);
 
     if (this._isEmpty(preferences)
@@ -63,15 +65,16 @@ class Preference extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
-      || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     JSON.stringify(this.props.preferences) !== JSON.stringify(nextProps.preferences)
+  //     || JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items)
+  //   );
+  // }
 
   _isEmpty(obj) {
-    return obj && obj.constructor === Object && Object.keys(obj).length === 0;
+    if (!obj) { return true; }
+    return (obj.constructor === Object && Object.keys(obj).length === 0);
   }
 
   _getCardColor(item) {
@@ -101,7 +104,6 @@ class Preference extends Component {
       orderedItems[prefLevel] = currItemId;
     });
     const cards = [];
-    console.log(myItemPref);
     for (entry of orderedItems.entries()) {
       const prefLevel = entry[0];
       const itemId = entry[1];
