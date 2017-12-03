@@ -1,5 +1,5 @@
 import db from 'config/db';
-import { S3_URL_BASE } from 'config/aws';
+import { S3_URL_BASE, S3_THUMB_URL_BASE } from 'config/aws';
 import { uploadImage } from 'util/imageUploadHelper';
 import { UPDATE_ITEMS } from 'config/actionTypes';
 
@@ -17,6 +17,7 @@ export const addItem = ({ owner, auction, image, description, title }, successCa
       description,
       title,
       image: `${S3_URL_BASE}/items/${newItem.id}.jpg`,
+      thumbnail: `${S3_THUMB_URL_BASE}/thumb-items/${newItem.id}.jpg`
     });
     auctionsRef.doc(auction).update({
       [`items.${newItem.id}`]: true,

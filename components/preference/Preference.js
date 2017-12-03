@@ -23,12 +23,15 @@ class Preference extends Component {
   _renderPreferenceCards() {
     const { items } = this.props;
     const { auctionId } = this.props.navigation.state.params;
-    console.log(items);
+    if (!items[auctionId]) {
+      return [];
+    }
     const auctionItems = items[auctionId];
     return Object.keys(auctionItems).map(
       key => {
         return (
           <PreferenceCard
+            onTap={() => console.log(key)}
             key={key}
             item={auctionItems[key]}
             color="#8BC34A"
