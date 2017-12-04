@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import ProfileCard from 'components/profile/ProfileCard';
 import ProfileAuctionsList from 'components/profile/ProfileAuctionsList';
 import TradesList from 'components/trades/TradesList';
 
 class Profile extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Home',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <FontAwesome name="user-o" size={20} color="gray" />
+    ),
+  };
+
   render() {
     const { user } = this.props;
     return (

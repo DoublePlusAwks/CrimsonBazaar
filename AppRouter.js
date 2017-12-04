@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, StatusBar, Text, View, ActivityIndicator, Platform } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -21,23 +22,29 @@ class AppRouter extends React.Component {
   render() {
     const { user } = this.props;
     return (
-      <View style={styles.container}>
-        {user.initialized ?
-          user.email && user.emailVerified
-            ? <RootRouter />
-            : <LoginRouter />
-          : <View style={styles.loadingContainer}>
-            <ActivityIndicator animating={user.initialized} />
-          </View>
-        }
+      <View style={{...StyleSheet.absoluteFillObject}}>
+        <Spinner visible={!user.initialized} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+        <View style={styles.statusBar}/>
+        <View style={styles.container}>
+          {
+            user.email !== '' && user.emailVerified
+              ? <RootRouter />
+              : <LoginRouter />
+          }
+        </View>
       </View>
     );
   }
 }
 
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+
 const styles = StyleSheet.create({
+  statusBar: {
+    height: STATUSBAR_HEIGHT,
+    backgroundColor: 'lightgray',
+  },
   container: {
-    paddingTop: StatusBar.currentHeight,
     flex: 1,
     backgroundColor: '#fff'
   },

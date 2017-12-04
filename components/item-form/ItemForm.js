@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Dimensions, TouchableOpacity, Image, View, Text, TextInput, StyleSheet } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+  View,
+  Text,
+  TextInput,
+  StyleSheet
+} from 'react-native';
 import { ImagePicker } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -25,7 +35,7 @@ class ItemForm extends Component {
       allowsEditing: true,
       aspect: [1, 1],
       base64: true,
-      quality: 0.3
+      quality: 0.1
     });
 
     if (!result.cancelled) {
@@ -85,27 +95,29 @@ class ItemForm extends Component {
               {imgPlaceholder}
             </View>
           </TouchableOpacity>
-          <View style={styles.textInputContainer}>
-            <View style={styles.textContainer}>
-              <TextInput
-                underlineColorAndroid="transparent"
-                placeholder="What is it?"
-                onChangeText={title => this.setState({ title })}
-                value={title}
-              />
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.textInputContainer}>
+              <View style={styles.textContainer}>
+                <TextInput
+                  underlineColorAndroid="transparent"
+                  placeholder="What is it?"
+                  onChangeText={title => this.setState({ title })}
+                  value={title}
+                />
+              </View>
+              <View style={styles.textContainer}>
+                <TextInput
+                  underlineColorAndroid="transparent"
+                  placeholder="Description"
+                  style={styles.descriptionInput}
+                  multiline = {true}
+                  numberOfLines = {4}
+                  onChangeText={description => this.setState({ description })}
+                  value={description}
+                />
+              </View>
             </View>
-            <View style={styles.textContainer}>
-              <TextInput
-                underlineColorAndroid="transparent"
-                placeholder="Description"
-                style={styles.descriptionInput}
-                multiline = {true}
-                numberOfLines = {4}
-                onChangeText={description => this.setState({ description })}
-                value={description}
-              />
-            </View>
-          </View>
+          </TouchableWithoutFeedback>
         </View>
         <KeyboardSpacer />
         <TouchableOpacity

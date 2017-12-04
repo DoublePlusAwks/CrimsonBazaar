@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { Button, ScrollView, Text, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
 import AuctionsList from 'components/auctions/AuctionsList';
 
 class Auctions extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Auctions',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <FontAwesome name="exchange" size={20} color="gray" />
+    ),
+  };
+
   constructor(props) {
     super(props);
   }

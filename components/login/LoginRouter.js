@@ -8,4 +8,7 @@ export default StackNavigator({
   Home: { screen: LoginHome },
   LoginForm: { screen: LoginForm },
   SignupForm: { screen: SignupForm },
-}, { headerMode: 'screen' });
+}, {
+  initialRouteName: 'Home',
+  headerMode: 'screen'
+});
