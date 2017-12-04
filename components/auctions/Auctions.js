@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, Text, StyleSheet } from 'react-native';
+import { Alert, Button, ScrollView, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { MAX_LIVES } from 'config/constants';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
 import AuctionsList from 'components/auctions/AuctionsList';
 
@@ -25,7 +26,16 @@ class Auctions extends Component {
 
   _onCardPress({ auction, auctionId }) {
     const { navigate } = this.props.navigation;
-    navigate('ItemForm', { auctionId });
+    const { user } = this.props;
+    const numLives = MAX_LIVES - user.numActiveAuctions - user.numIncompleteTrades;
+    if (numLives > 0) {
+      navigate('ItemForm', { auctionId });
+    } else {
+      Alert.alert(
+        'Out of lives!',
+        'Please complete outstanding trades to regain lives'
+      );
+    }
   }
 
   _getNonparticipatingAuctions() {

@@ -17,6 +17,7 @@ class ProfileAuctionsList extends Component {
   componentWillReceiveProps(nextProps) {
     const { user, userChange } = nextProps;
     const nextNumActiveAuctions = Object.keys(this._getParticipatingAuctions(nextProps)).length;
+    console.log(nextNumActiveAuctions);
     if (user.numActiveAuctions !== nextNumActiveAuctions) {
       userChange({ numActiveAuctions: nextNumActiveAuctions });
     }
@@ -29,12 +30,14 @@ class ProfileAuctionsList extends Component {
 
   _getParticipatingAuctions(props) {
     const { auctions, user } = props;
-    return Object.keys(auctions)
-      .filter(key => auctions[key].participants[user.uid] === true)
+    const auctionKeys = Object.keys(auctions);
+    if (auctionKeys.length) {
+      return auctionKeys.filter(key => auctions[key].participants[user.uid] === true)
       .reduce((obj, key) => {
         obj[key] = auctions[key];
         return obj;
       }, {});
+    } return {};
   }
 
   render() {

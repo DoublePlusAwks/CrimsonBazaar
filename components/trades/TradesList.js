@@ -17,7 +17,8 @@ class TradesList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { user, toTrades, userChange } = nextProps;
+    const { user, trades, userChange } = nextProps;
+    const { toTrades } = trades;
     const nextNumIncompleteTrades = Object.keys(toTrades).length;
     if (user.numIncompleteTrades !== nextNumIncompleteTrades) {
       userChange({ numIncompleteTrades: nextNumIncompleteTrades });

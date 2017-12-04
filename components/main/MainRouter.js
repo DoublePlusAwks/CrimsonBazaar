@@ -8,6 +8,6 @@ export default TabNavigator({
   Profile: { screen: Profile },
   Auctions: { screen: Auctions },
 },{
-  initialRouteName: 'Auctions',
+  initialRouteName: 'Profile',
   headerMode: 'screen'
 });
