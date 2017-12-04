@@ -28,7 +28,7 @@ const logoutSuccess = () => {
   };
 };
 
-const userChange = user => {
+export const userChange = user => {
   if (!user) {
     user = {};
   }

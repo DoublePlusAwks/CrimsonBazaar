@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
+import { userChange } from 'actions/UserActions';
 import AuctionsList from 'components/auctions/AuctionsList';
 
 class ProfileAuctionsList extends Component {
@@ -13,13 +14,21 @@ class ProfileAuctionsList extends Component {
     this.props.subscribeToAuctions();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { user, userChange } = nextProps;
+    const nextNumActiveAuctions = Object.keys(this._getParticipatingAuctions(nextProps)).length;
+    if (user.numActiveAuctions !== nextNumActiveAuctions) {
+      userChange({ numActiveAuctions: nextNumActiveAuctions });
+    }
+  }
+
   _onCardPress({ auction, auctionId }) {
     const { navigate } = this.props.navigation;
     navigate('Preference', { auctionId });
   }
 
-  _getParticipatingAuctions() {
-    const { auctions, user } = this.props;
+  _getParticipatingAuctions(props) {
+    const { auctions, user } = props;
     return Object.keys(auctions)
       .filter(key => auctions[key].participants[user.uid] === true)
       .reduce((obj, key) => {
@@ -31,7 +40,7 @@ class ProfileAuctionsList extends Component {
   render() {
     return (
       <AuctionsList
-        auctions={this._getParticipatingAuctions()}
+        auctions={this._getParticipatingAuctions(this.props)}
         onCardPress={card => this._onCardPress(card)}
       />
     );
@@ -47,7 +56,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    subscribeToAuctions
+    subscribeToAuctions,
+    userChange
   }, dispatch);
 };
 

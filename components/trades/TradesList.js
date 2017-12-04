@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TradeCard from 'components/trades/TradeCard';
 import { subscribeToTrades } from 'actions/TradesActions';
+import { userChange } from 'actions/UserActions';
 
 class TradesList extends Component {
   constructor(props) {
@@ -13,6 +14,14 @@ class TradesList extends Component {
   componentWillMount() {
     const { user, subscribeToTrades } = this.props;
     subscribeToTrades(user.uid);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { user, toTrades, userChange } = nextProps;
+    const nextNumIncompleteTrades = Object.keys(toTrades).length;
+    if (user.numIncompleteTrades !== nextNumIncompleteTrades) {
+      userChange({ numIncompleteTrades: nextNumIncompleteTrades });
+    }
   }
 
   _renderToTrades() {
@@ -70,6 +79,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     subscribeToTrades,
+    userChange
   }, dispatch);
 };
 
