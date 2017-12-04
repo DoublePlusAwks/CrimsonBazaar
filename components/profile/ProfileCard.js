@@ -14,15 +14,15 @@ class ProfileCard extends Component {
     let key = 0;
     for (let i = 0; i < numLives; i++) {
       hearts.push(
-        <View style={{ marginHorizontal: 2 }}>
-          <FontAwesome name="heart" size={20} color="crimson" key={key} />
+        <View style={{ marginHorizontal: 2 }} key={key}>
+          <FontAwesome name="heart" size={20} color="crimson" />
         </View>);
       key++;
     }
     for (let i = numLives; i < MAX_LIVES; i++) {
       hearts.push(
-        <View style={{ marginHorizontal: 2 }}>
-          <FontAwesome name="heart-o" size={20} color="crimson" key={key} />
+        <View style={{ marginHorizontal: 2 }} key={key}>
+          <FontAwesome name="heart-o" size={20} color="crimson" />
         </View>);
       key++;
     }
