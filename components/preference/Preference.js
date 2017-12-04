@@ -26,12 +26,12 @@ class Preference extends Component {
     );
   }
 
-  componentDidUpdate() {
+  componentWillReceiveProps(nextProps) {
     const {
       getItems, getPreference, setPreference,
       user, preferences, items
-    } = this.props;
-    const { auctionId } = this.props.navigation.state.params;
+    } = nextProps;
+    const { auctionId } = nextProps.navigation.state.params;
     if (preferences.fetching || this._isEmpty(items) || this._isEmpty(items[auctionId])) {
       return;
     }

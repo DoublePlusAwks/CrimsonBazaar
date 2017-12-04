@@ -8,7 +8,6 @@ export const subscribeToTrades = owner => {
     const outstandingTrades = tradesRef.where('completed', '==', false);
     outstandingTrades.where('fromUser', '==', owner)
       .onSnapshot(snapshot => {
-        console.log(snapshot);
         const fromTrades = {};
         snapshot.forEach(doc => {
           fromTrades[doc.id] = doc.data();

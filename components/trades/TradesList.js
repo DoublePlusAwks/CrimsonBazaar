@@ -16,7 +16,6 @@ class TradesList extends Component {
   }
 
   _renderToTrades() {
-    console.log(this.props);
     const { navigate } = this.props.navigation;
     const { toTrades } = this.props.trades;
     return Object.keys(toTrades).map(tradeId => {

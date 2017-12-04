@@ -46,18 +46,22 @@ class ItemForm extends Component {
       title,
       image
     }, () => {
-      this.setState({ loading: false });
-      // https://github.com/react-community/react-navigation/issues/1127
-      const resetAction = NavigationActions.reset({
-        index: 1,
-        key: null,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Main'}),
-          NavigationActions.navigate({ routeName: 'Preference', params: { auctionId } })
-        ]
+      setTimeout(
+        () => {
+          this.setState({ loading: false });
+          // https://github.com/react-community/react-navigation/issues/1127
+          const resetAction = NavigationActions.reset({
+            index: 1,
+            key: null,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Main' }),
+              NavigationActions.navigate({ routeName: 'Preference', params: { auctionId } })
+            ]
+          });
+          this.props.navigation.dispatch(resetAction);
+        }, 2500);
       });
-      this.props.navigation.dispatch(resetAction);
-    });
+
   }
 
   render() {
