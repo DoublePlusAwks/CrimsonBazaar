@@ -1,35 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { MAX_LIVES } from 'config/constants';
 import { logout } from 'actions/UserActions';
 
-const ProfileCard = ({ user, logout }) => {
-  return (
-    <View>
-      <View style={styles.profileCard}>
-        <View style={styles.profileInfo}>
-          <Text style={styles.title}>
-            Welcome {user.firstName}
-          </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={logout}>
-            <Text style={{color: 'white'}}>
-              Log out
+class ProfileCard extends Component {
+  _renderHearts() {
+    const { user } = this.props;
+    const numLives = MAX_LIVES - user.numActiveAuctions - user.numIncompleteTrades;
+    const hearts = []; // :)
+    let key = 0;
+    for (let i = 0; i < numLives; i++) {
+      hearts.push(<FontAwesome name="heart" size={20} color="crimson" key={key} />);
+      key++;
+    }
+    for (let i = numLives; i < MAX_LIVES; i++) {
+      hearts.push(<FontAwesome name="heart-o" size={20} color="crimson" key={key} />);
+      key++;
+    }
+    return hearts;
+  }
+
+  render() {
+    const { user, logout } = this.props;
+    return (
+      <View>
+        <View style={styles.profileCard}>
+          <View style={styles.profileInfo}>
+            <Text style={styles.title}>
+              Welcome {user.firstName}
             </Text>
-          </TouchableOpacity>
+          </View>
+          <View style={styles.heartContainer}>
+            <Text style={styles.livesText}>LIVES: </Text>
+            {this._renderHearts()}
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={logout}>
+              <Text style={{color: 'white'}}>
+                Log out
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   profileCard: {
-    height: 100,
+    paddingTop: 20,
+    height: 120,
     backgroundColor: 'lightgray',
   },
   profileInfo: {
@@ -39,6 +65,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+    fontWeight: 'bold'
+  },
+  heartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  livesText: {
+    fontSize: 18,
     fontWeight: 'bold'
   },
   buttonContainer: {
