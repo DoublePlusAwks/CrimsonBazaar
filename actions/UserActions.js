@@ -5,6 +5,9 @@ import {
   GET_USER, UPDATE_USER,
 } from 'config/actionTypes';
 import firebase from 'config/firebase';
+import db from 'config/db';
+
+const usersRef = db.collection('users');
 
 const loginError = error => {
   return {
@@ -26,11 +29,22 @@ const logoutSuccess = () => {
 };
 
 const userChange = user => {
+  if (!user) {
+    user = {};
+  }
   return {
     type: UPDATE_USER,
     user
   };
 };
+
+export const getUserFromDB = userId => {
+  return dispatch => {
+    usersRef.doc(userId).get().then(doc => {
+      dispatch(userChange(doc.data()));
+    });
+  }
+}
 
 export const subscribeToAuth = () => {
   return dispatch => {
@@ -41,6 +55,7 @@ export const subscribeToAuth = () => {
       }
       else if (user.email && user.uid) {
         dispatch(loginSuccess());
+        dispatch(getUserFromDB(user.uid));
       }
     });
   }
@@ -48,8 +63,10 @@ export const subscribeToAuth = () => {
 
 export const getUser = () => {
   return dispatch => {
-    dispatch({ type: GET_USER });
-    return userChange(firebase.auth().currentUser);
+    usersRef(firebase.auth().currentUser.uid).get().then(doc => {
+      dispatch({ type: GET_USER });
+      return userChange({ ...firebase.auth().currentUser, ...doc.data() });
+    });
   };
 };
 
@@ -110,10 +127,15 @@ const verifyEmail = () => {
   }
 }
 
-export const signup = ({ email, password }) => {
+export const signup = ({ firstName, lastName, email, password }) => {
   return dispatch => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(user => {
+        usersRef.doc(user.uid).set({
+          firstName,
+          lastName,
+          email
+        });
         dispatch(verifyEmail());
         dispatch(signupSuccess());
       })

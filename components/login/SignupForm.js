@@ -14,15 +14,25 @@ class SignupForm extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      firstName: '',
+      lastName: ''
     };
   }
 
   render() {
     const { signup } = this.props;
-    const { email, password } = this.state;
+    const { firstName, lastName, email, password } = this.state;
     return (
       <View>
+        <Text>First Name</Text>
+        <TextInput
+          onChangeText={firstName => this.setState({ firstName })}
+        />
+        <Text>Last Name</Text>
+        <TextInput
+          onChangeText={lastName => this.setState({ lastName })}
+        />
         <Text>Email</Text>
         <TextInput
           onChangeText={email => this.setState({ email })}
@@ -33,8 +43,8 @@ class SignupForm extends Component {
           secureTextEntry={true}
         />
         <Button
-          onPress={() => signup({ email, password })}
-          title="Sign Up"
+          onPress={() => signup({ firstName, lastName, email, password })}
+          title="SIGN UP"
           color="red"
         />
       </View>

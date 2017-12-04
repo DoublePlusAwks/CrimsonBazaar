@@ -7,10 +7,8 @@ function userReducer(state = initialState.user, action) {
   switch(action.type) {
     case UPDATE_USER:
       return update(state, {
+        $merge: action.user,
         initialized: { $set: true },
-        email: { $set: action.user && action.user.email },
-        uid: { $set: action.user && action.user.uid },
-        emailVerified: { $set: action.user && action.user.emailVerified },
       });
   }
   return state;

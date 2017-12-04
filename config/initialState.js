@@ -4,7 +4,11 @@ export default {
     email: '',
     uid: '',
     emailVerified: false,
-    initialized: false
+    initialized: false,
+    numActiveAuctions: 0,
+    numIncompleteTrades: 0,
+    firstName: '',
+    lastName: '',
   },
   auctions: {
   },

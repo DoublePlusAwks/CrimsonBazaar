@@ -10,7 +10,7 @@ const ProfileCard = ({ user, logout }) => {
       <View style={styles.profileCard}>
         <View style={styles.profileInfo}>
           <Text style={styles.title}>
-            Welcome {user.email}
+            Welcome {user.firstName}
           </Text>
         </View>
         <View style={styles.buttonContainer}>
