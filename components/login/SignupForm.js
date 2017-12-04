@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { Alert, View, Text, TextInput, Button } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -20,18 +20,34 @@ class SignupForm extends Component {
     };
   }
 
-  render() {
-    const { signup } = this.props;
+  _signup() {
     const { firstName, lastName, email, password } = this.state;
+    const { signup } = this.props;
+    if (!firstName || !lastName || !email || !password) {
+      Alert.alert('Please complete all fields');
+    } else if (email.endsWith('harvard.edu')) {
+      signup({ firstName, lastName, email, password });
+      Alert.alert(`Please validate your email: ${email}`);
+    } else {
+      Alert.alert(
+        "Inavlid email",
+        "We are presently only supporting \"harvard.edu\" emails. Sorry!"
+      );
+    }
+  }
+
+  render() {
     return (
       <View>
         <Text>First Name</Text>
         <TextInput
           onChangeText={firstName => this.setState({ firstName })}
+          autoCapitalize="words"
         />
         <Text>Last Name</Text>
         <TextInput
           onChangeText={lastName => this.setState({ lastName })}
+          autoCapitalize="words"
         />
         <Text>Email</Text>
         <TextInput
@@ -43,7 +59,7 @@ class SignupForm extends Component {
           secureTextEntry={true}
         />
         <Button
-          onPress={() => signup({ firstName, lastName, email, password })}
+          onPress={() => this._signup()}
           title="SIGN UP"
           color="red"
         />

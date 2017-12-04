@@ -114,7 +114,7 @@ class ItemForm extends Component {
           <View
             style={styles.submitButton} >
             <Text style={styles.submitText}>
-              Submit
+              SUBMIT
             </Text>
           </View>
         </TouchableOpacity>
