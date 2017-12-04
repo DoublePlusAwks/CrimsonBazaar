@@ -35,7 +35,7 @@ class ItemForm extends Component {
       allowsEditing: true,
       aspect: [1, 1],
       base64: true,
-      quality: 0.1
+      quality: 0.3
     });
 
     if (!result.cancelled) {
@@ -86,16 +86,16 @@ class ItemForm extends Component {
       );
     }
     return (
-      <View style={styles.container}>
-        <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
-        <View style={styles.contentContainer}>
-          <TouchableOpacity
-            onPress={() => this._pickImage()} >
-            <View style={styles.imgContainer}>
-              {imgPlaceholder}
-            </View>
-          </TouchableOpacity>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+          <View style={styles.contentContainer}>
+            <TouchableOpacity
+              onPress={() => this._pickImage()} >
+              <View style={styles.imgContainer}>
+                {imgPlaceholder}
+              </View>
+            </TouchableOpacity>
             <View style={styles.textInputContainer}>
               <View style={styles.textContainer}>
                 <TextInput
@@ -117,20 +117,20 @@ class ItemForm extends Component {
                 />
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </View>
-        <KeyboardSpacer />
-        <TouchableOpacity
-          onPress={() => this._submit()}
-        >
-          <View
-            style={styles.submitButton} >
-            <Text style={styles.submitText}>
-              SUBMIT
-            </Text>
           </View>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => this._submit()}
+          >
+            <View
+              style={styles.submitButton} >
+              <Text style={styles.submitText}>
+                SUBMIT
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <KeyboardSpacer />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
