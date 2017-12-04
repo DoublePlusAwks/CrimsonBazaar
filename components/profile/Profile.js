@@ -25,7 +25,7 @@ class Profile extends Component {
         <View style={styles.contentContainer}>
           <View style={styles.auctionsContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Ongoing Auctions</Text>
+              <Text style={styles.title}>Ongoing Exchanges</Text>
             </View>
             <ProfileAuctionsList navigation={this.props.navigation} />
           </View>

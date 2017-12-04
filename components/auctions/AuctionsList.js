@@ -9,7 +9,15 @@ class AuctionsList extends Component {
 
   _renderAuctionCards() {
     const { onCardPress, auctions } = this.props;
-    return Object.keys(auctions).map(
+    const auctionKeys = Object.keys(auctions);
+    if (auctionKeys.length == 0) {
+      return (
+        <Text>
+          No exchanges...yet :)
+        </Text>
+      )
+    }
+    return auctionKeys.map(
       auctionId => {
         return (
           <AuctionCard

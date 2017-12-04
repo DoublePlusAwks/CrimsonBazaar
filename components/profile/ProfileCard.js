@@ -10,14 +10,20 @@ class ProfileCard extends Component {
   _renderHearts() {
     const { user } = this.props;
     const numLives = MAX_LIVES - user.numActiveAuctions - user.numIncompleteTrades;
-    const hearts = []; // :)
+    const hearts = [];
     let key = 0;
     for (let i = 0; i < numLives; i++) {
-      hearts.push(<FontAwesome name="heart" size={20} color="crimson" key={key} />);
+      hearts.push(
+        <View style={{ marginHorizontal: 2 }}>
+          <FontAwesome name="heart" size={20} color="crimson" key={key} />
+        </View>);
       key++;
     }
     for (let i = numLives; i < MAX_LIVES; i++) {
-      hearts.push(<FontAwesome name="heart-o" size={20} color="crimson" key={key} />);
+      hearts.push(
+        <View style={{ marginHorizontal: 2 }}>
+          <FontAwesome name="heart-o" size={20} color="crimson" key={key} />
+        </View>);
       key++;
     }
     return hearts;
@@ -42,7 +48,7 @@ class ProfileCard extends Component {
               style={styles.logoutButton}
               onPress={logout}>
               <Text style={{color: 'white'}}>
-                Log out
+                LOG OUT
               </Text>
             </TouchableOpacity>
           </View>

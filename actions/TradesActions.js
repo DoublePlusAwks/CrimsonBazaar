@@ -8,17 +8,6 @@ export const subscribeToTrades = owner => {
     const outstandingTrades = tradesRef.where('completed', '==', false);
     outstandingTrades.where('fromUser', '==', owner)
       .onSnapshot(snapshot => {
-        const fromTrades = {};
-        snapshot.forEach(doc => {
-          fromTrades[doc.id] = doc.data();
-        });
-        dispatch({
-          type: UPDATE_TRADES_FROM,
-          trades: fromTrades
-        });
-      });
-    outstandingTrades.where('toUser', '==', owner)
-      .onSnapshot(snapshot => {
         const toTrades = {};
         snapshot.forEach(doc => {
           toTrades[doc.id] = doc.data();
@@ -26,6 +15,17 @@ export const subscribeToTrades = owner => {
         dispatch({
           type: UPDATE_TRADES_TO,
           trades: toTrades
+        });
+      });
+    outstandingTrades.where('toUser', '==', owner)
+      .onSnapshot(snapshot => {
+        const fromTrades = {};
+        snapshot.forEach(doc => {
+          fromTrades[doc.id] = doc.data();
+        });
+        dispatch({
+          type: UPDATE_TRADES_FROM,
+          trades: fromTrades
         });
       });
   };

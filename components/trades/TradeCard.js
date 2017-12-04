@@ -44,7 +44,7 @@ class TradeCard extends Component {
           <View style={styles.textContainer}>
             <View>
               <Text style={styles.title}>
-                Trade {isTo ? 'to' : 'from'}
+                Trade {isTo ? 'to' : 'from'}:
               </Text>
             </View>
             <View>

@@ -60,11 +60,23 @@ class TradesList extends Component {
     });
   }
 
+  _renderTrades() {
+    const toTradeCards = this._renderToTrades();
+    const fromTradeCards = this._renderFromTrades();
+    if (toTradeCards.length == 0 && fromTradeCards.length == 0) {
+      return (
+        <Text>
+          No trades...yet :)
+        </Text>
+      );
+    }
+    return toTradeCards.concat(fromTradeCards);
+  }
+
   render() {
     return (
       <View>
-        {this._renderToTrades()}
-        {this._renderFromTrades()}
+        {this._renderTrades()}
       </View>
     );
   }

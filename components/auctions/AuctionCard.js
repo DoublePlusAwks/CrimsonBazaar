@@ -28,7 +28,7 @@ class AuctionCard extends Component {
             </View>
             <View>
               <Text>
-                {`Market closes ${moment.default(auction.end).fromNow()}`}
+                {`Exchange closes ${moment.default(auction.end).fromNow()}`}
               </Text>
               <Text>
                 {`Contains ${pluralize.default('item', this._itemCount(), true)}`}

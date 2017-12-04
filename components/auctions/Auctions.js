@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, ScrollView, Text, StyleSheet } from 'react-native';
+import { Alert, Button, ScrollView, View, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import AuctionsList from 'components/auctions/AuctionsList';
 
 class Auctions extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Auctions',
+    tabBarLabel: 'Exchanges',
     // Note: By default the icon is only shown on iOS. Search the showIcon option below.
     tabBarIcon: ({ tintColor }) => (
       <FontAwesome name="exchange" size={20} color="gray" />
@@ -51,6 +51,9 @@ class Auctions extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>New Exchanges</Text>
+        </View>
         <AuctionsList
           auctions={this._getNonparticipatingAuctions()}
           onCardPress={card => this._onCardPress(card)}
@@ -63,6 +66,14 @@ class Auctions extends Component {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 5,
+  },
+  titleContainer: {
+    borderBottomWidth: 2.5,
+    paddingVertical: 5,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold'
   },
 });
 
