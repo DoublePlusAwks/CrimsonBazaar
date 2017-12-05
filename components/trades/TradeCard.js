@@ -16,11 +16,11 @@ class TradeCard extends Component {
 
   _getOtherUser() {
     const { isTo, trade } = this.props;
-    let otherUser = trade.toUser;
+    let otherUser;
     if (isTo) {
-      otherUser = trade.fromUser;
-    } else {
       otherUser = trade.toUser;
+    } else {
+      otherUser = trade.fromUser;
     }
     return otherUser;
   }

@@ -27,7 +27,7 @@ class ValidateTradeFrom extends Component {
     }
     const { completeTrade, navigation } = this.props;
     const { trade, tradeId } = navigation.state.params;
-    if (data == trade.toUser) {
+    if (data == trade.fromUser) {
       this.setState({ disabled: true });
       const backAction = NavigationActions.back();
       completeTrade(tradeId, () => {
