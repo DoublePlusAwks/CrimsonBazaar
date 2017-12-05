@@ -17,7 +17,6 @@ class ProfileAuctionsList extends Component {
   componentWillReceiveProps(nextProps) {
     const { user, userChange } = nextProps;
     const nextNumActiveAuctions = Object.keys(this._getParticipatingAuctions(nextProps)).length;
-    console.log(nextNumActiveAuctions);
     if (user.numActiveAuctions !== nextNumActiveAuctions) {
       userChange({ numActiveAuctions: nextNumActiveAuctions });
     }
