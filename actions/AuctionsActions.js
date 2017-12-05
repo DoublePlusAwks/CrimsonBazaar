@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import db from 'config/db';
 import { UPDATE_AUCTIONS } from 'config/actionTypes';
 
@@ -8,7 +9,9 @@ export const subscribeToAuctions = () => {
     auctionsRef.onSnapshot(snapshot => {
       auctions = {};
       snapshot.forEach(doc => {
-        auctions[doc.id] = doc.data();
+        if (moment.default(doc.data().end) > moment.default()) {
+          auctions[doc.id] = doc.data();
+        }
       });
       dispatch({
         type: UPDATE_AUCTIONS,

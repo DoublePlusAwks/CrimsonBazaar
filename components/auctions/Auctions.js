@@ -3,7 +3,6 @@ import { Alert, Button, ScrollView, View, Text, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as moment from 'moment';
 import { MAX_LIVES } from 'config/constants';
 import { subscribeToAuctions } from 'actions/AuctionsActions';
 import AuctionsList from 'components/auctions/AuctionsList';
@@ -42,11 +41,7 @@ class Auctions extends Component {
   _getNonparticipatingAuctions() {
     const { auctions, user } = this.props;
     return Object.keys(auctions)
-      .filter(
-        key => {
-          return auctions[key].participants[user.uid] !== true
-          && moment.default(auctions[key].end) > moment.default()
-      })
+      .filter(key => { return auctions[key].participants[user.uid] !== true })
       .reduce((obj, key) => {
         obj[key] = auctions[key];
         return obj;
