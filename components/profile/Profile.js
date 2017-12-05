@@ -11,7 +11,7 @@ class Profile extends Component {
     tabBarLabel: 'Home',
     // Note: By default the icon is only shown on iOS. Search the showIcon option below.
     tabBarIcon: ({ tintColor }) => (
-      <FontAwesome name="user-o" size={20} color="gray" />
+      <FontAwesome name="user-o" size={20} color="white" />
     ),
   };
 

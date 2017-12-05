@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
@@ -10,6 +11,7 @@ export default TabNavigator({
 },{
   initialRouteName: 'Profile',
   headerMode: 'screen',
+  tabBarPosition: (Platform.OS === 'ios') ? 'bottom' : 'top',
   tabBarOptions: {
     style: {
       backgroundColor: 'steelblue',
