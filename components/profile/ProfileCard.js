@@ -76,10 +76,11 @@ const styles = StyleSheet.create({
   heartContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 20
+    marginTop: 20,
+    alignItems: 'center',
   },
   livesText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   buttonContainer: {

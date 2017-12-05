@@ -9,5 +9,12 @@ export default TabNavigator({
   Auctions: { screen: Auctions },
 },{
   initialRouteName: 'Profile',
-  headerMode: 'screen'
+  headerMode: 'screen',
+  tabBarPosition: 'top',
+  tabBarOptions: {
+    style: {
+      backgroundColor: 'steelblue',
+    },
+    activeTintColor: 'white',
+  },
 });
