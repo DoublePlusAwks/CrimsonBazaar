@@ -75,6 +75,7 @@ class ItemForm extends Component {
 
   render() {
     const { title, description, image } = this.state;
+    const { status } = this.props;
     var imgPlaceholder = <Ionicons name="md-camera" size={128} color="gray" />;
     if (image) {
       imgPlaceholder = (
@@ -118,9 +119,12 @@ class ItemForm extends Component {
           </View>
           <TouchableOpacity
             onPress={() => this._submit()}
-          >
+            disabled={status.loading} >
             <View
-              style={styles.submitButton} >
+              style={{
+                ...styles.submitButton,
+                backgroundColor: status.loading ?
+                  '#B0C4DE' : 'steelblue' }} >
               <Text style={styles.submitText}>
                 SUBMIT
               </Text>
@@ -135,7 +139,7 @@ class ItemForm extends Component {
 
 var { height, width } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     margin: 20,
     flex: 1,
@@ -177,11 +181,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   }
-});
+};
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    status: state.status
   };
 };
 

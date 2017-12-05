@@ -31,7 +31,7 @@ class AppRouter extends React.Component {
     const { user, status } = this.props;
     return (
       <View style={{...StyleSheet.absoluteFillObject}}>
-        <Spinner visible={status.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+        <Spinner visible={!user.initialized} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
         <View style={styles.statusBar}/>
         <View style={styles.container}>
           {
