@@ -45,5 +45,7 @@ const uploadAsByteArray = async (byteArray, key, successCallback) => {
 }
 
 export const uploadImage = async (image, key, successCallback) => {
-  uploadAsByteArray(convertToByteArray(image.base64), key, successCallback);
+  if (image) {
+    uploadAsByteArray(convertToByteArray(image.base64), key, successCallback);
+  }
 }
