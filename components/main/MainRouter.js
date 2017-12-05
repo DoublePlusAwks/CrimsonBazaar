@@ -10,7 +10,6 @@ export default TabNavigator({
 },{
   initialRouteName: 'Profile',
   headerMode: 'screen',
-  tabBarPosition: 'top',
   tabBarOptions: {
     style: {
       backgroundColor: 'steelblue',
