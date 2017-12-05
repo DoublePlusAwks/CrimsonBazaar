@@ -11,6 +11,7 @@ import ItemsReducer from 'reducers/ItemsReducer';
 import PreferencesReducer from 'reducers/PreferencesReducer';
 import TradesReducer from 'reducers/TradesReducer';
 import OtherUsersReducer from 'reducers/OtherUsersReducer';
+import StatusReducer from 'reducers/StatusReducer';
 
 const rootReducer = combineReducers({
   errors: ErrorReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   items: ItemsReducer,
   preferences: PreferencesReducer,
   trades: TradesReducer,
-  otherUsers: OtherUsersReducer
+  otherUsers: OtherUsersReducer,
+  status: StatusReducer
 });
 
 const store = createStore(

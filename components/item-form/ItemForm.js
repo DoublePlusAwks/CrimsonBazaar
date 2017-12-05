@@ -13,11 +13,11 @@ import {
 import { ImagePicker } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import Spinner from 'react-native-loading-spinner-overlay';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation'
 import { addItem } from 'actions/ItemActions';
+import { setLoading } from 'actions/StatusActions';
 
 class ItemForm extends Component {
   constructor(props) {
@@ -26,7 +26,6 @@ class ItemForm extends Component {
       title: '',
       description: '',
       image: null,
-      loading: false
     };
   }
 
@@ -44,11 +43,11 @@ class ItemForm extends Component {
   }
 
   _submit() {
-    const { user, addItem } = this.props;
+    const { user, addItem, setLoading } = this.props;
     const { auctionId } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
     const { title, description, image } = this.state;
-    this.setState({ loading: true });
+    setLoading(true);
     addItem({
       owner: user.uid,
       auction: auctionId,
@@ -58,7 +57,7 @@ class ItemForm extends Component {
     }, () => {
       setTimeout(
         () => {
-          this.setState({ loading: false });
+          setLoading(false);
           // https://github.com/react-community/react-navigation/issues/1127
           const resetAction = NavigationActions.reset({
             index: 1,
@@ -88,7 +87,6 @@ class ItemForm extends Component {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
-          <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
           <View style={styles.contentContainer}>
             <TouchableOpacity
               onPress={() => this._pickImage()} >
@@ -189,7 +187,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    addItem
+    addItem,
+    setLoading
   }, dispatch);
 };
 

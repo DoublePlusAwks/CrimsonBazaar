@@ -23,3 +23,5 @@ export const UPDATE_TRADES_FROM = 'UPDATE_TRADES_FROM';
 export const COMPLETE_TRADE = 'COMPLETE_TRADE';
 
 export const GET_OTHER_USER = 'GET_OTHER_USER';
+
+export const SET_LOADING = 'SET_LOADING';

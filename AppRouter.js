@@ -9,6 +9,7 @@ import RootRouter from 'components/main/RootRouter';
 import LoginRouter from 'components/login/LoginRouter';
 
 import { subscribeToAuth } from 'actions/UserActions';
+import { setLoading } from 'actions/StatusActions';
 
 class AppRouter extends React.Component {
   constructor(props) {
@@ -19,11 +20,18 @@ class AppRouter extends React.Component {
     this.props.subscribeToAuth();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { user, setLoading } = nextProps;
+    if (user.initialized && !this.props.user.initialized) {
+      setLoading(false);
+    }
+  }
+
   render() {
-    const { user } = this.props;
+    const { user, status } = this.props;
     return (
       <View style={{...StyleSheet.absoluteFillObject}}>
-        <Spinner visible={!user.initialized} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+        <Spinner visible={status.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
         <View style={styles.statusBar}/>
         <View style={styles.container}>
           {
@@ -57,13 +65,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    status: state.status
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    subscribeToAuth
+    subscribeToAuth,
+    setLoading
   }, dispatch);
 };
 

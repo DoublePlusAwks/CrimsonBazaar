@@ -1,5 +1,8 @@
 export default {
   errors: [],
+  status: {
+    loading: true
+  },
   user: {
     email: '',
     uid: '',
