@@ -16,6 +16,7 @@ export default TabNavigator({
     style: {
       backgroundColor: 'steelblue',
     },
-    activeTintColor: 'white',
+    activeTintColor: '#AAB6A2',
+    inactiveTintColor: 'white',
   },
 });
