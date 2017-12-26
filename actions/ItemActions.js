@@ -1,5 +1,5 @@
 import db from 'config/db';
-import { S3_URL_BASE, S3_THUMB_URL_BASE } from 'config/aws';
+import { S3_URL_BASE, S3_THUMB_URL_BASE } from 'third-party-apis/aws';
 import { uploadImage } from 'util/imageUploadHelper';
 import { UPDATE_ITEMS } from 'config/actionTypes';
 

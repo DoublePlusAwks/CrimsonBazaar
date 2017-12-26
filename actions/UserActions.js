@@ -4,7 +4,7 @@ import {
   VERIFY_EMAIL, VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_ERROR,
   GET_USER, UPDATE_USER,
 } from 'config/actionTypes';
-import firebase from 'config/firebase';
+import firebase from 'third-party-apis/firebase';
 import db from 'config/db';
 
 const usersRef = db.collection('users');

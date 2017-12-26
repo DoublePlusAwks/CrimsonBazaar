@@ -1,4 +1,4 @@
-import { s3 } from 'config/aws';
+import { s3 } from 'third-party-apis/aws';
 
 const convertToByteArray = (input) => {
   var binary_string = this.atob(input);

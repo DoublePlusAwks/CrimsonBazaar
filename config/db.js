@@ -1,5 +1,5 @@
 import 'firebase/firestore'
-import firebase from 'config/firebase';
+import firebase from 'third-party-apis/firebase';
 
 // https://github.com/firebase/firebase-js-sdk/issues/283
 // Deep magic
